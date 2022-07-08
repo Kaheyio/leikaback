@@ -59,6 +59,6 @@ app.listen(process.env.PORT || process.env.API_PORT, () => console.log(`Server w
 // display welcome to leikaback
 app.get('/', async (req, res) => {
     res.send(
-        '<div style="font-family: sans-serif"><h1 style="color: #262626; text-align: center;">Welcome to Leikaback</h1> <div style="text-align: center"><img src="./assets/logohoriz.png" alt="leika logo"></div></div>'
+        '<div style="font-family: sans-serif"><h1 style="color: #262626; text-align: center;">Welcome to Leikaback</h1> <div style="text-align: center"><img src="assets/logohoriz.png" alt="leika logo"></div></div>'
     )
 });
