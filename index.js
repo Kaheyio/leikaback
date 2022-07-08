@@ -48,15 +48,17 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 
 
-// display welcome to leikaback
-app.get('/', async (req, res) => {
-    res.send(
-        '<div style="font-family: sans-serif"><h1 style="color: #262626; text-align: center;">Welcome to Leikaback</h1> <div style="text-align: center"><button style="background-color: crimson; border: none; border-radius: 3px; padding: 5px;"><a href="./api/users" style="text-decoration: none; color: white;">See Users</a></button></div></div>'
-    )
-});
+
 
 // Routes
 app.use('/api/auth', authRoute);
 app.use('/api/users', usersRoute);
 
 app.listen(process.env.PORT || process.env.API_PORT, () => console.log(`Server works: http://localhost:${process.env.API_PORT}/api`));
+
+// display welcome to leikaback
+app.get('/', async (req, res) => {
+    res.send(
+        '<div style="font-family: sans-serif"><h1 style="color: #262626; text-align: center;">Welcome to Leikaback</h1> <div style="text-align: center"><button style="background-color: crimson; border: none; border-radius: 3px; padding: 5px;"><a href="./api/users" style="text-decoration: none; color: white;">See Users</a></button></div></div>'
+    )
+});
