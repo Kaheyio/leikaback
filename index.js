@@ -5,6 +5,9 @@ const cors = require('cors');
 // Import Routes
 const authRoute = require('./routes/auth');
 const usersRoute = require('./routes/users');
+const accountsRoute = require('./routes/accounts');
+const transactionsRoute = require('./routes/transactions');
+const cardsRoute = require('./routes/cards');
 
 // cookie parser
 const cookieParser = require('cookie-parser');
@@ -53,6 +56,9 @@ app.use(cookieParser());
 // Routes
 app.use('/api/auth', authRoute);
 app.use('/api/users', usersRoute);
+app.use('/api/accounts', accountsRoute);
+app.use('/api/transactions', transactionsRoute);
+app.use('/api/cards', cardsRoute);
 
 app.listen(process.env.PORT || process.env.API_PORT, () => console.log(`Server works: http://localhost:${process.env.API_PORT}`));
 
