@@ -1,20 +1,18 @@
 /***** ACCOUNT CRUD *****/
 
 const Account = require('../models/Account');
-const User = require('../models/User');
 
-const Transaction = require('../models/Transaction');
-
-const mongoose = require('mongoose');
-
-const toId = mongoose.Types.ObjectId;
 
 // TODO: balance of account = sum of all associated transactions
 
 // GET ALL ACCOUNTS
 module.exports.getAccounts_get = async (req, res) => {
     const accounts = await Account.find();
-    res.send(accounts);
+    if (accounts) {
+        res.status(201).json(accounts);
+    } else {
+        res.status(400).send('No account found')
+    }
 };
 
 // GET ACCOUNT BY ID
@@ -46,10 +44,10 @@ module.exports.getUserAccounts_get = async (req, res) => {
 };
 
 
-// TEST : USERID FOT test4 = 62b43815c1687ee17ac1e9f0
+// TEST : USERID FOR test4 = 62b43815c1687ee17ac1e9f0
 // CREATE AN ACCOUNT
 module.exports.createAccount_post = async (req, res) => {
-    const userId = toId(req.params.userId);
+    const userId = req.params.userId;
 
     // const bankIdStatement = {
     // branchCode,
@@ -70,6 +68,10 @@ module.exports.createAccount_post = async (req, res) => {
     } = req.body;
 
 
+
+
+    // TODO: add custom validation for enum fields
+    
 
     // TODO: validate required fields
     // TODO: add cardRef and BIS

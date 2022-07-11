@@ -7,6 +7,9 @@ const Account = require('./Account');
 // One account can have several operations
 // One operation can be linked to several accounts ?
 
+
+// TODO: CRYPT ALL SENSITIVE INFO
+ 
 // TODO: use enum
 
 const transactionSchema = new mongoose.Schema({
@@ -37,10 +40,10 @@ const transactionSchema = new mongoose.Schema({
     // recipient account in case of transfer ?
     // targetAccount: String
 
-    // TODO: use enum
     // transactionType = card or direct debit or wire transfer
     transactionType: {
         type: String,
+        enum: ['Card', 'Direct debit', 'Wire transfer'],
         required: true
     },
 
@@ -50,10 +53,10 @@ const transactionSchema = new mongoose.Schema({
         required: true
     },
 
-    // TODO: use enum
     // transactionStatus = incoming or pending (to be validated) or past or rejected
     transactionStatus: {
         type: String,
+        enum: ['Incoming', 'Pending', 'Past', 'Rejected'],
         required: true
     },
 
@@ -61,11 +64,12 @@ const transactionSchema = new mongoose.Schema({
     estimatedDate: Date,
 
     // PENDING TRANSACTION
-    // TODO: use enum
     // userValidationStatus (user validates pending transactions with leikode) = pending, cancelled, validated 
-    userValidationStatus: String,
+    userValidationStatus: {
+       type: String,
+       enum: ['Pending', 'Cancelled', 'Validated'] 
+    },
 
-    // TODO: use enum
     // bankValidationStatus (after user validation, bank validates if balance is ok)
     bankValidationStatus: Boolean,
 
@@ -76,9 +80,11 @@ const transactionSchema = new mongoose.Schema({
     subcategory: String,
 
     // REJECTED TRANSACTION
-    // TODO: use enum
     // rejectionReason = invalid leikode (?), user cancellation or insufficient funds/balance
-    rejectionReason: String
+    rejectionReason: {
+        type: String,
+        enum: ['Invalid Leikode', 'User cancellation', 'Insufficient funds'] 
+     }
 });
 
 module.exports = mongoose.model('transaction', transactionSchema);

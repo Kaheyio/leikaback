@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 // One user can have several accounts (2 max)
 const Account = require('./Account');
 
+// TODO: CRYPT ALL SENSITIVE INFO
+
 // TODO: add receivers ref
 // TODO: add user's postal address (for bank id statement/RIB)
 

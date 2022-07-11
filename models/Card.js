@@ -9,14 +9,19 @@ const Account = require('./Account');
 // One account can have one card (FOR NOW)
 // One card is linked to one account and to one user
 
-// TODO: use enum
+// TODO: CRYPT ALL SENSITIVE INFO
+
 
 const cardSchema = new mongoose.Schema({
     // DO NOT SET DOCUMENT ID, IT'S AUTOMATIC 
     
-    cardNumber: String,
-    // secret number at the back of the card
-    // cardSecret: String,
+    // for ex 4275 3156 0372 5493
+     cardNumber: String,
+
+    // CVV = secret number at the back of the card
+    // for 568
+    cardCVV: String,
+
     accountRef: {
         type: mongoose.Types.ObjectId,
         ref: 'account'
@@ -26,19 +31,27 @@ const cardSchema = new mongoose.Schema({
         ref: 'user'
     },
 
-    // TODO: use enum
     // paymentNetwork = Visa or Mastercard or American Express
-    paymentNetwork: String,
+    paymentNetwork: {
+        type: String,
+        enum: ['Visa', 'Mastercard', 'American Express'] 
+    },
 
     // limits (plafonds) for card payment. NOT NEEDED IN OUR CASE ?
     // limits: Number,
 
-    // TODO: use enum
+    // TODO: add expiration date and set cardStatus to Expired 
+    // for ex 2024-03 (= Fri Mar 01 2024 01:00:00 GMT+0100 (heure normale d’Europe centrale))
+    expirationDate: Date,
+    
     // cardStatus = validation pending (user requested a 2nd card), blocked, valid
-    cardStatus: String
+    cardStatus: {
+        type: String,
+        enum: ['Validation pending', 'Valid', 'Blocked', 'Expired']
+    }
 },{
     timestamps: true
 }
 );
-
-module.exports = mongoose.model('card', cardSchema);
+ 
+module.exports = mongoose.model('card', cardSchema); 

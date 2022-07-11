@@ -9,7 +9,8 @@ const Card = require('./Card');
 // One account can have several operations
 // One account can have one card (FOR NOW)
 
-// TODO: use enum
+// TODO: CRYPT ALL SENSITIVE INFO
+
 // TODO: set required fields to true
 
 const accountSchema = new mongoose.Schema({

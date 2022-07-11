@@ -19,7 +19,7 @@ router.get('/user/:userId', accountCrudController.getUserAccounts_get);
 // CREATE USER ACCOUNT
 router.post('/user/:userId', accountCrudController.createAccount_post);
 
-// DELETE USER ACCOUNT
+// DELETE USER ACCOUNT WITH ACCOUNT ID
 router.delete('/user/:id', accountCrudController.deleteAccount_delete);
 
 
