@@ -33,14 +33,14 @@ const accountSchema = new mongoose.Schema({
         accountNumber: String,
         // clé RIB for ex 46
         key: String,
-        // domiciliation for ex LA BANQUE POSTALE BORDEAUX CENTRE FINANCIER
+        // domiciliation for ex LEIKA BANK BORDEAUX FINANCIAL CENTRE
         domiciliation: String
     },
 
     // ONLY FOR CREDIT ACCOUNT !
     // for ex FR45 2006 7895 3256 8547 2T25 786
     accountIBAN: String,
-    // for ex PSSTFRPPMAR for LA BANQUE POSTALE FR
+    // for ex PSSTFRPPBOR for LEIKA BANK FR
     accountBIC: String,
 
     // accountType = credit or savings (if accountType = savings, no card)
@@ -53,19 +53,14 @@ const accountSchema = new mongoose.Schema({
         ref: 'user'
     },
 
-    // account should not store all transactions (bad schema design for performance)
-    // transactions: [{
-    //     type: mongoose.Types.ObjectId,
-    //     ref: 'transaction'
-    // }],
-
-    // TODO: LATER, user can have 2 cards by account max (cards array)
-    // cardRef: {
-    //     type: mongoose.Types.ObjectId,
-    //     ref: 'card'
-    // },
-    // TODO: LATER, if user already has two cards linked to a credit account, canAddCard = false
-    // canAddCard: Boolean
+    // user can have 2 cards max by account (cards array)
+    cardsRef: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'card'
+    }],
+    
+    // if user already has two cards linked to a credit account, canAddCard = false
+    canAddCard: Boolean
 }, {
     timestamps: true
 }

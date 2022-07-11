@@ -19,7 +19,7 @@ const cardSchema = new mongoose.Schema({
      cardNumber: String,
 
     // CVV = secret number at the back of the card
-    // for 568
+    // for ex 568
     cardCVV: String,
 
     accountRef: {

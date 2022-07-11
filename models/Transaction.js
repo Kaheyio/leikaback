@@ -15,6 +15,7 @@ const Account = require('./Account');
 const transactionSchema = new mongoose.Schema({
     // DO NOT SET DOCUMENT ID, IT'S AUTOMATIC 
     
+    // can be recipient account for transfer
     title: {
         type: String,
         required: true,

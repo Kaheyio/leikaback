@@ -2,6 +2,8 @@
 
 const Card = require('../models/Card');
 
+const Account = require('../models/Account');
+
 // TODO: ask for a new card, block card
 
 // GET ALL CARDS
@@ -55,7 +57,8 @@ module.exports.getAccountCards_get = async (req, res) => {
 
 
 // TEST : USERID FOR test4 = 62b43815c1687ee17ac1e9f0
-// accountRef = 62cb4275e74bedd85397c329
+// accountRef (account id) CREDIT = 62cb4275e74bedd85397c329
+// accountRef (account id) SAVINGS = 62cb49c322e3c4aefe85c589
 // CREATE A CARD LINKED TO AN ACCOUNT
 module.exports.createCard_post = async (req, res) => {
     const accountRef = req.params.accountRef;
@@ -77,22 +80,7 @@ module.exports.createCard_post = async (req, res) => {
     const cardStatus = (setExpirationDate <= currentDate ? 'Expired' : req.body.cardStatus);
 
 
-    // TODO: validation
 
-    // TODO: check if accountType !== credit, no card creation
-    
-
-    // TODO: set limit of 2 cards by credit account (if acount.canAddCard = false, no new card)
-
-
-    // TODO: check if card doesn't already exist
-    const cardExists = await Card.findOne({
-        cardNumber
-    });
-
-    if (cardExists) {
-        return res.status(400).send('This card is already registered');
-    };
 
 
     const card = new Card({
@@ -105,15 +93,61 @@ module.exports.createCard_post = async (req, res) => {
         cardStatus
     });
 
+    /////////////////////////////////////
+    
+    // TODO: DO update on account before saving card + populate on get accounts to get card info
+    const account = await Account.findById({
+        _id: accountRef
+    });
+
+    // check if accountType !== credit, no card creation
+    if (account.accountType !== 'Credit') {
+        return res.status(400).send('Your card cannot be associated to a savings account');
+    }
+
+    // TODO: set limit of 2 cards by credit account (if account.canAddCard = false, no new card)
+    if (account.cardsRef.length >= 2) {
+        await account.update({
+            canAddCard: false
+        });
+        await account.save();
+        return res.status(400).send('Two cards are already registered to your credit account');
+    }
+
+    // check if card doesn't already exist
+    const cardExists = await Card.findOne({
+        cardNumber
+    });
+
+    if (cardExists) {
+        return res.status(400).send('This card is already registered');
+    };
+
+// TODO: update cardsRef in account 
+    // account.cardsRef.push(account._id);
+    // console.log(account.cardsRef);
+    const accountUpdate =
+        account.update({
+            $addToSet: {
+                cardsRef: account._id
+            }
+        })
+    await account.save();
+
+
+
     await card.save();
+
+    /////////////////////////////
 
     await res.status(201).send({
         created_card: card.id,
-        associated_account: card.accountRef,
-        card_status: card.cardStatus
+        card_status: card.cardStatus,
+        associated_account: card.accountRef
     });
 };
 
+// 62cb4275e74bedd85397c329
 
 // DELETE A CARD
 module.exports.deleteCard_delete = async (req, res) => {

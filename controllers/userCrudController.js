@@ -82,6 +82,8 @@ module.exports.registerUser_post = async (req, res) => {
     // save user
     await user.save();
 
+    // TODO: update user's accounts array
+
     await res.status(201).send({
         created_user: user.id
     });
