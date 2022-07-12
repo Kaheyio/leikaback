@@ -1,7 +1,15 @@
 const mongoose = require('mongoose');
-// to hash the code
-const bcrypt = require('bcryptjs');
 
+// One user can have several accounts (2 max)
+const Account = require('./Account');
+
+// TODO: CRYPT ALL SENSITIVE INFO
+
+// TODO: add receivers ref
+// TODO: add user's postal address (for bank id statement/RIB)
+
+// to hash leikode
+const bcrypt = require('bcryptjs');
 
 // User schema
 const userSchema = new mongoose.Schema({
@@ -20,7 +28,9 @@ const userSchema = new mongoose.Schema({
         minlength: 8
     },
     // Generated on each login
-    leikode: String
+    leikode: String,
+    // add accounts ref
+    accounts: [{ type: mongoose.Types.ObjectId, ref: 'account' }]
 }, {
     timestamps: true
 });
@@ -49,4 +59,4 @@ userSchema.statics.generateLeikode = async function generateLeikode() {
     });
 };
 
-module.exports = mongoose.model('user', userSchema)
+module.exports = mongoose.model('user', userSchema);
