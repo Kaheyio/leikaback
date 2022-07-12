@@ -5,16 +5,17 @@ const User = require('./User');
 const Transaction = require('./Transaction');
 const Card = require('./Card');
 
-// One user can have several accounts (2 max)
+// One user can have several accounts
 // One account can have several operations
-// One account can have one card (FOR NOW)
+// One credit account can have two cards max
 
-// TODO: CRYPT ALL SENSITIVE INFO
 
 // TODO: set required fields to true
 
 const accountSchema = new mongoose.Schema({
     // DO NOT SET DOCUMENT ID, IT'S AUTOMATIC 
+    // for ex Main, Secondary, Savings, Shared
+    accountName: String,
 
     // TODO: balance = sum of all associated transactions
     // set to 10 by default and increment/decrement
@@ -23,8 +24,7 @@ const accountSchema = new mongoose.Schema({
         default: 10
     },
 
-    // info for bank id statement (RIB)
-    bankIdStatement: {
+    // info for bank id statement (RIB) //
         // établissement for ex 56898
         branchCode: String,
         // guichet for ex 01258
@@ -32,10 +32,10 @@ const accountSchema = new mongoose.Schema({
         // n° de compte for ex 1245786T912
         accountNumber: String,
         // clé RIB for ex 46
-        key: String,
+        keyBIS: String,
         // domiciliation for ex LEIKA BANK BORDEAUX FINANCIAL CENTRE
-        domiciliation: String
-    },
+        domiciliation: String,
+    ////////////////////////////////////
 
     // ONLY FOR CREDIT ACCOUNT !
     // for ex FR45 2006 7895 3256 8547 2T25 786
@@ -53,7 +53,7 @@ const accountSchema = new mongoose.Schema({
         ref: 'user'
     },
 
-    // user can have 2 cards max by account (cards array)
+    // user can have 2 cards max by credit account (cards array)
     cardsRef: [{
         type: mongoose.Types.ObjectId,
         ref: 'card'

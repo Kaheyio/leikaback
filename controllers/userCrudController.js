@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs');
 
 // GET ALL USERS
 module.exports.getUsers_get = async (req, res) => {
-    const users = await User.find();
+    const users = await User.find({}).populate("accounts");
 
     if (users) {
         res.status(201).json(users);
@@ -20,7 +20,7 @@ module.exports.getUsers_get = async (req, res) => {
 // GET USER BY ID
 module.exports.getUserById_get = async (req, res) => {
     const id = req.params.id;
-    const loggedUser = await User.findById({_id : id});
+    const loggedUser = await User.findById({_id : id}).populate("accounts");
     res.send(loggedUser);
 };
 

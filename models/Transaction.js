@@ -1,16 +1,11 @@
 const mongoose = require('mongoose');
 
-
 const Account = require('./Account');
 
-// One user can have several accounts (2 max)
+// One user can have several accounts 
 // One account can have several operations
-// One operation can be linked to several accounts ?
+// One operation can be linked to one account
 
-
-// TODO: CRYPT ALL SENSITIVE INFO
- 
-// TODO: use enum
 
 const transactionSchema = new mongoose.Schema({
     // DO NOT SET DOCUMENT ID, IT'S AUTOMATIC 
@@ -38,8 +33,8 @@ const transactionSchema = new mongoose.Schema({
         required: true
     },
 
-    // recipient account in case of transfer ?
-    // targetAccount: String
+    // recipient account in case of wire transfer validated
+    targetAccount: String,
 
     // transactionType = card or direct debit or wire transfer
     transactionType: {
@@ -75,10 +70,15 @@ const transactionSchema = new mongoose.Schema({
     bankValidationStatus: Boolean,
 
     // PAST TRANSACTION
-    // ???
     // TODO: use enum
-    category: String,
-    subcategory: String,
+    category: {
+        type: String,
+        enum: [] 
+     },
+    subcategory: {
+        type: String,
+        enum: [] 
+     },
 
     // REJECTED TRANSACTION
     // rejectionReason = invalid leikode (?), user cancellation or insufficient funds/balance
