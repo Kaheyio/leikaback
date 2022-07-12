@@ -28,16 +28,16 @@ mongoose.connect(process.env.DB_CONNECT, {
 Extends and adds flexibility to the same-origin policy (SOP). However, also provides potential for cross-domain attacks, if a website's CORS policy is poorly configured and implemented.]
 The cors package available in the npm registry is used to tackle CORS errors in a Node.js application. */
 // TODO: try cors if other method doesn't work on production
-// app.use(cors());
+app.use(cors());
 
 // OR
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
+// app.use(function (req, res, next) {
+//     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//     res.setHeader('Access-Control-Allow-Credentials', true);
+//     next();
+// });
 
 // Post request Middleware (we use express's body parser so we can send post requests)
 app.use(express.json());
