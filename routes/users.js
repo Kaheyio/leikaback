@@ -13,7 +13,7 @@ const userCrudController = require('../controllers/userCrudController');
 // GET ALL USERS
 router.get('/', userCrudController.getUsers_get);
 
-// GET USER LOGGED BY EMAIL
+// GET USER LOGGED BY ID
 router.get('/:id', userCrudController.getUserById_get);
 
 // REGISTER (for test)

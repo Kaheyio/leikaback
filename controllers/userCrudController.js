@@ -9,7 +9,12 @@ const bcrypt = require('bcryptjs');
 // GET ALL USERS
 module.exports.getUsers_get = async (req, res) => {
     const users = await User.find();
-    res.send(users);
+
+    if (users) {
+        res.status(201).json(users);
+    } else {
+        res.status(400).send('No user found')
+    }
 };
 
 // GET USER BY ID
@@ -76,6 +81,8 @@ module.exports.registerUser_post = async (req, res) => {
 
     // save user
     await user.save();
+
+    // TODO: update user's accounts array
 
     await res.status(201).send({
         created_user: user.id
