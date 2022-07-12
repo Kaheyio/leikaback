@@ -73,7 +73,7 @@ app.use(express.static(__dirname + '/public'));
 // display welcome to leikaback
 app.get('/', async (req, res) => {
     res.send(
-        '<!DOCTYPE html><html><head><title>Leika Bank API</title><link rel="icon" type="image/x-icon" href="/images/favicon.ico" style="width: 50px; height: 50px;"></head><body style="display: flex;align-items: center;"><div style="font-family: sans-serif; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center"><h1 style="color: #3d3d3d;">Welcome to the Leika Bank API</h1><img src="/images/leika_woman.png" alt="leika logo" style="height: 300px; filter: hue-rotate(60deg) invert(90%) grayscale();"></div></body></html>'
+        '<!DOCTYPE html><html><head><title>Leika Bank API</title><link rel="icon" type="image/x-icon" href="/images/logo.ico" style="width: 50px; height: 50px;"></head><body style="display: flex;align-items: center;"><div style="font-family: sans-serif; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center"><h1 style="color: #3d3d3d;">Welcome to the Leika Bank API</h1><img src="/images/leika_woman.png" alt="leika logo" style="height: 300px; filter: hue-rotate(60deg) invert(90%) grayscale();"></div></body></html>'
     )
 });
 
