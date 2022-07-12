@@ -16,11 +16,11 @@ router.get('/:id', accountCrudController.getAccountById_get);
 // get all accounts of one user
 router.get('/user/:userId', accountCrudController.getUserAccounts_get);
 
-// CREATE USER ACCOUNT
+// CREATE USER ACCOUNT WITH USER ID
 router.post('/user/:userId', accountCrudController.createAccount_post);
 
-// DELETE USER ACCOUNT WITH ACCOUNT ID
-router.delete('/user/:id', accountCrudController.deleteAccount_delete);
+// DELETE ACCOUNT WITH ACCOUNT ID
+router.delete('/:id', accountCrudController.deleteAccount_delete);
 
 
 module.exports = router;

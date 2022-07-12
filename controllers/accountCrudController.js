@@ -7,7 +7,9 @@ const Account = require('../models/Account');
 
 // GET ALL ACCOUNTS
 module.exports.getAccounts_get = async (req, res) => {
-    const accounts = await Account.find();
+    const accounts = await Account.find({}).populate("cardsRef");
+
+
     if (accounts) {
         res.status(201).json(accounts);
     } else {
@@ -15,13 +17,13 @@ module.exports.getAccounts_get = async (req, res) => {
     }
 };
 
-// GET ACCOUNT BY ID
+// GET ACCOUNT BY ACCOUNT ID
 module.exports.getAccountById_get = async (req, res) => {
     const id = req.params.id;
 
     const account = await Account.findById({
         _id: id
-    });
+    }).populate("cardsRef");
 
     if (account) {
         res.status(201).send(account);
@@ -38,7 +40,7 @@ module.exports.getUserAccounts_get = async (req, res) => {
 
     const account = await Account.find({
         userId
-    });
+    }).populate("cardsRef");
 
     res.send(account);
 };

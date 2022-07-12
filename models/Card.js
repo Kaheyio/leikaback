@@ -44,10 +44,10 @@ const cardSchema = new mongoose.Schema({
     // for ex 2024-03 (= Fri Mar 01 2024 01:00:00 GMT+0100 (heure normale d’Europe centrale))
     expirationDate: Date,
     
-    // cardStatus = validation pending (user requested a 2nd card), blocked, valid
+    // cardStatus = valid, blocked (user's request), expired (check date)
     cardStatus: {
         type: String,
-        enum: ['Validation pending', 'Valid', 'Blocked', 'Expired']
+        enum: ['Valid', 'Blocked', 'Expired']
     }
 },{
     timestamps: true
