@@ -30,12 +30,19 @@ mongoose.connect(process.env.DB_CONNECT, {
 /* [NB Cross-origin resource sharing (CORS) = browser mechanism that allows a web page to use assets and data from other pages or domains.
 Extends and adds flexibility to the same-origin policy (SOP). However, also provides potential for cross-domain attacks, if a website's CORS policy is poorly configured and implemented.]
 The cors package available in the npm registry is used to tackle CORS errors in a Node.js application. */
-// TODO: try cors if other method doesn't work on production
+// if other method doesn't work on production
 // app.use(cors());
 
 // OR
 app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://leika.netlify.app');
+    // create whitelist of domains
+    const whitelist = ['https://leika.netlify.app', 'http://localhost:4200'];
+    const origin = req.headers.origin;
+    if (whitelist.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    // res.setHeader('Access-Control-Allow-Origin', 'https://leika.netlify.app');
+    
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', true);

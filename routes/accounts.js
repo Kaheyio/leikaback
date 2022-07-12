@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const accountCrudController = require('../controllers/accountCrudController');
 
-// NB: full route is localhost:PORT/api/accounts/...
+// NB: full route is /api/accounts/...
 
 
 // GET ALL ACCOUNTS

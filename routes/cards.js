@@ -2,10 +2,10 @@ const router = require('express').Router();
 
 const cardCrudController = require('../controllers/cardCrudController');
 
+// route = /api/cards/
+
 // GET ALL Cards
 router.get('/', cardCrudController.getCards_get);
-
-// route = /api/cards/
 
 // GET WITH FILTERS //
 // get one card by its id
