@@ -14,11 +14,11 @@ const transactionSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    amount: {
+    amount: { //TODO only positive numbers
         type: Number,
         required: true
     },
-    amountBool: Boolean,
+    amountBool: Boolean, //TODO change to amountnegative
     emissionDate: {
         // Date = 2022-07-01 00:00:00
         type: Date,
