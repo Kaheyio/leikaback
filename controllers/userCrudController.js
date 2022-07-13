@@ -79,6 +79,7 @@ module.exports.registerUser_post = async (req, res) => {
         username,
         email,
         password: hashedPassword,
+        address
     });
 
     // save user

@@ -42,7 +42,7 @@ const transactionSchema = new mongoose.Schema({
         required: true
     },
 
-    // card number reference or direct debit reference or wire transfer note
+    // card number reference (check card schema) or direct debit reference or wire transfer note
     transactionRef: {
         type: String,
         required: true
