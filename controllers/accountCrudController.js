@@ -2,18 +2,14 @@
 
 const Account = require('../models/Account');
 
-
-// TODO: balance of account = sum of all associated transactions
-
 // GET ALL ACCOUNTS
 module.exports.getAccounts_get = async (req, res) => {
     const accounts = await Account.find({}).populate("cardsRef");
 
-
     if (accounts) {
         res.status(201).json(accounts);
     } else {
-        res.status(400).send('No account found')
+        res.status(400).send('No account found');
     }
 };
 
@@ -30,7 +26,6 @@ module.exports.getAccountById_get = async (req, res) => {
     } else {
         res.status(400).send('This account doesn\'t exist');
     }
-
 };
 
 
@@ -51,50 +46,54 @@ module.exports.getUserAccounts_get = async (req, res) => {
 module.exports.createAccount_post = async (req, res) => {
     const userId = req.params.userId;
 
-    // const bankIdStatement = {
-    // branchCode,
-    // counterCode,
-    // accountNumber,
-    // key,
-    // domiciliation
-    // }
+    /* TODO: accountName = body + validation (unique), balance = increment with transactions or body for savings or default (10), branchCode = body, counterCode = body, accountNumber = body + validation (unique), keyBIS = body, domiciliation = body, accountIBAN = body + validation, accountBIC = body, accountType = body, userId = param, cardsRef = with card creation, canAddCArd = with card creation */
 
-    // TODO: add bankIdStatement
     const {
+        accountName,
         balance,
-        bankIdStatement,
+        branchCode,
+        counterCode,
+        accountNumber,
+        keyBIS,
+        domiciliation,
         accountIBAN,
         accountBIC,
-        accountType,
-        cardRef
+        accountType
     } = req.body;
 
 
+    
+    // TODO: validation
+    
+    // check if accountName already exists
 
 
-    // TODO: add custom validation for enum fields
+    // check if accountNumber already exists
+
+    // check if accountIBAN already exists
+   
+
     
 
-    // TODO: validate required fields
-    // TODO: add cardRef and BIS
-    // if (!accountType) {
-    //     res.send('Account was not created, one or several fields missing');
-    //     return;
-    // }
-
-    // balance is set to 10 by default, change amount in transactions crud
+    // balance is set to 10 by default, change amount in transactions crud or set amount in body
 
     const account = new Account({
+        accountName,
         balance,
-        bankIdStatement,
+        branchCode,
+        counterCode,
+        accountNumber,
+        keyBIS,
+        domiciliation,
         accountIBAN,
         accountBIC,
-        accountType,
-        userId,
-        cardRef
+        accountType
     });
 
     await account.save();
+
+
+    // TODO: update in user = accounts
 
     await res.status(201).send({
         created_account: account.id,
@@ -102,6 +101,12 @@ module.exports.createAccount_post = async (req, res) => {
     });
 };
 
+// TODO: wire transfer method
+/* wire transfer is either made on a leika bank = change balance of sender account and recipient account
+or made on an external account = change balance of sender account 
++ set new amount in beneficiary account
++ no wire transfer possible on someone else's savings account !!!
+*/
 
 // DELETE ACCOUNT
 module.exports.deleteAccount_delete = async (req, res) => {

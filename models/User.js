@@ -1,12 +1,7 @@
 const mongoose = require('mongoose');
 
-// One user can have several accounts (2 max)
-const Account = require('./Account');
-
-// TODO: CRYPT ALL SENSITIVE INFO
-
-// TODO: add receivers ref
-// TODO: add user's postal address (for bank id statement/RIB)
+// One user can have several accounts
+// One user can have several beneficiaries
 
 // to hash leikode
 const bcrypt = require('bcryptjs');
@@ -30,7 +25,13 @@ const userSchema = new mongoose.Schema({
     // Generated on each login
     leikode: String,
     // add accounts ref
-    accounts: [{ type: mongoose.Types.ObjectId, ref: 'account' }]
+    accounts: [{ type: mongoose.Types.ObjectId, ref: 'account' }],
+
+    // postal address for BIS (RIB), for ex ['85 bd de Monteux', '13005 Marseille' , 'FRANCE']
+    address: [String],
+
+    // recipient/beneficiary of wire transfer
+    transferBeneficiaries: [{ type: mongoose.Types.ObjectId, ref: 'beneficiary' }]
 }, {
     timestamps: true
 });
