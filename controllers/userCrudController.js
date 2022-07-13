@@ -8,8 +8,9 @@ const bcrypt = require('bcryptjs');
 
 // GET ALL USERS
 module.exports.getUsers_get = async (req, res) => {
-    const users = await User.find({}).populate("accounts");
+    const users = await User.find({}).populate("accounts").populate("transferBeneficiaries");
 
+    
     if (users) {
         res.status(201).json(users);
     } else {
@@ -20,7 +21,7 @@ module.exports.getUsers_get = async (req, res) => {
 // GET USER BY ID
 module.exports.getUserById_get = async (req, res) => {
     const id = req.params.id;
-    const loggedUser = await User.findById({_id : id}).populate("accounts");
+    const loggedUser = await User.findById({_id : id}).populate("accounts").populate("transferBeneficiaries");
     res.send(loggedUser);
 };
 
@@ -30,12 +31,13 @@ module.exports.registerUser_post = async (req, res) => {
     const {
         username,
         email,
-        password
+        password,
+        address
     } = req.body;
 
     // CUSTOM VALIDATION BEFORE CREATION
     // all fields given ?
-    if (!username || !email || !password) {
+    if (!username || !email || !password || !address) {
         res.send('User was not created, one or several fields missing');
         return;
     }
@@ -82,7 +84,7 @@ module.exports.registerUser_post = async (req, res) => {
     // save user
     await user.save();
 
-    // TODO: update user's accounts array
+    // TODO: update user's accounts array + transferBeneficiaries
 
     await res.status(201).send({
         created_user: user.id

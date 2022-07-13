@@ -8,6 +8,8 @@ const usersRoute = require('./routes/users');
 const accountsRoute = require('./routes/accounts');
 const transactionsRoute = require('./routes/transactions');
 const cardsRoute = require('./routes/cards');
+const beneficiariesRoute = require('./routes/beneficiaries');
+
 
 // cookie parser
 const cookieParser = require('cookie-parser');
@@ -64,8 +66,10 @@ app.use('/api/users', usersRoute);
 app.use('/api/accounts', accountsRoute);
 app.use('/api/transactions', transactionsRoute);
 app.use('/api/cards', cardsRoute);
+app.use('/api/beneficiaries', beneficiariesRoute);
 
-app.listen(process.env.PORT || process.env.API_PORT, () => console.log(`Server works: http://localhost:${process.env.API_PORT}`));
+// localhost port = 3000
+app.listen(process.env.PORT || process.env.API_PORT, () => console.log(`Server works`));
 
 // set the public folder as static (to display assets such as images)
 app.use(express.static(__dirname + '/public'));

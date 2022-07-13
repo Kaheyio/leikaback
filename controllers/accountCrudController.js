@@ -2,7 +2,6 @@
 
 const Account = require('../models/Account');
 
-
 // GET ALL ACCOUNTS
 module.exports.getAccounts_get = async (req, res) => {
     const accounts = await Account.find({}).populate("cardsRef");
@@ -10,7 +9,7 @@ module.exports.getAccounts_get = async (req, res) => {
     if (accounts) {
         res.status(201).json(accounts);
     } else {
-        res.status(400).send('No account found')
+        res.status(400).send('No account found');
     }
 };
 
@@ -27,7 +26,6 @@ module.exports.getAccountById_get = async (req, res) => {
     } else {
         res.status(400).send('This account doesn\'t exist');
     }
-
 };
 
 
@@ -67,7 +65,7 @@ module.exports.createAccount_post = async (req, res) => {
     
     // TODO: validation
     
-    // check if acountName already exists
+    // check if accountName already exists
 
 
     // check if accountNumber already exists
@@ -94,12 +92,21 @@ module.exports.createAccount_post = async (req, res) => {
 
     await account.save();
 
+
+    // TODO: update in user = accounts
+
     await res.status(201).send({
         created_account: account.id,
         user_account: account.userId
     });
 };
 
+// TODO: wire transfer method
+/* wire transfer is either made on a leika bank = change balance of sender account and recipient account
+or made on an external account = change balance of sender account 
++ set new amount in beneficiary account
++ no wire transfer possible on someone else's savings account !!!
+*/
 
 // DELETE ACCOUNT
 module.exports.deleteAccount_delete = async (req, res) => {

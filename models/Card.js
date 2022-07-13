@@ -1,14 +1,10 @@
 const mongoose = require('mongoose');
 
 
-const User = require('./User');
-const Account = require('./Account');
-
 // One user can have several accounts 
 // One account can have several operations
 // One credit account can have 2 cards max
 // One card is linked to one account and to one user
-
 
 
 const cardSchema = new mongoose.Schema({

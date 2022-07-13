@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-const Account = require('./Account');
 
 // One user can have several accounts 
 // One account can have several operations
