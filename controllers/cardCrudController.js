@@ -99,8 +99,16 @@ module.exports.createCard_post = async (req, res) => {
         _id: accountRef
     });
 
-    // check if accountType = Savings, no card creation
+    // check if accountType = Savings, no card creation and canAddCard = false
     if (account.accountType == 'Savings') {
+
+        const noSavingsCard = await Account.findByIdAndUpdate({
+            _id: accountRef
+        }, {
+            canAddCard: false
+        });
+        await noSavingsCard.save();
+
         return res.status(400).send('Your card cannot be associated to a savings account');
     }
 
@@ -157,6 +165,12 @@ module.exports.deleteCard_delete = async (req, res) => {
         const deleteCard = await Card.deleteOne({
             _id: id
         });
+
+        //TODO: update accounts (cardsRef + canAddCard)
+        //TODO: transaction that has cardNumber as transactionRef ?
+
+        
+
         res.status(201).json(deleteCard);
     } catch (err) {
         res.status(400).send('An error occurred, card was not deleted');

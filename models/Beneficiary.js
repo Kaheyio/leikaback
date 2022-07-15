@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // One user can have several beneficiaries (wire transfer recipients)
-// One beneficiary can be linked to several users, no ref to users
+// One beneficiary can be linked to one user
 
 const beneficiarySchema = new mongoose.Schema({
 
@@ -16,8 +16,13 @@ const beneficiarySchema = new mongoose.Schema({
     transferHistory: [{
         type: mongoose.Types.ObjectId,
         ref: 'transaction'
-    }]
+    }],
 
+    // put associated user id
+    userId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'user'
+    }
 },{
     timestamps: true
 });

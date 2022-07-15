@@ -32,7 +32,7 @@ module.exports.getTransactions_get = async (req, res) => {
 
 // UPDATE STATUS OF TRANSACTION OFR PENDING TRANSACTION (LEIKODE VALIDATION)
 
-
+// TODO: chain deletion
 // DELETE TRANSACTION
 module.exports.deleteTransaction_delete = async (req, res) => {
     const id = req.params.id;
@@ -41,6 +41,9 @@ module.exports.deleteTransaction_delete = async (req, res) => {
         const deleteTransaction = await Transaction.deleteOne({
             _id: id
         });
+
+        //TODO: update account balance
+        //TODO: update beneficiary (wire transfer)
         res.status(201).json(deleteTransaction);
     } catch (err) {
         res.status(400).send('An error occurred, transaction was not deleted');

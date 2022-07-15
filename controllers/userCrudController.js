@@ -2,6 +2,10 @@
 
 const User = require('../models/User');
 
+const Account = require('../models/Account');
+
+const Beneficiary = require('../models/Beneficiary');
+
 // to hash the password
 const bcrypt = require('bcryptjs');
 
@@ -85,8 +89,6 @@ module.exports.registerUser_post = async (req, res) => {
     // save user
     await user.save();
 
-    // TODO: update transferBeneficiaries
-
     await res.status(201).send({
         created_user: user.id
     });
@@ -94,7 +96,7 @@ module.exports.registerUser_post = async (req, res) => {
 };
 
 
-// TODO: chain deletion
+// TODO: chain deletion CHECK
 // DELETE ONE USER (by id)
 module.exports.deleteUser_delete = async (req, res) => {
     const id = req.params.id;
@@ -103,7 +105,16 @@ module.exports.deleteUser_delete = async (req, res) => {
         const deleteUser = await User.deleteOne({
             _id: id
         });
-        res.status(201).json(deleteUser);
+
+        // TODO: delete account CHECK
+        const deleteAccount = await Account.deleteMany({ userId: id });
+
+        // TODO: delete beneficiary CHECK
+        const deleteBeneficiaries = await Beneficiary.deleteMany({ userId: id })
+
+
+        res.status(201).json({deleteUser, deleteAccount, deleteBeneficiaries});
+
     } catch (err) {
         res.status(400).send('An error occurred, user was not deleted');
     }

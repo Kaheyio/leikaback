@@ -47,10 +47,6 @@ module.exports.getUserAccounts_get = async (req, res) => {
 module.exports.createAccount_post = async (req, res) => {
     const userId = req.params.userId;
 
-    /* TODO: accountName = body + validation (unique), balance = increment with transactions or body (for savings account) or default (10), 
-    branchCode = body, counterCode = body, accountNumber = body + validation (unique), keyBIS = body, domiciliation = body, 
-    accountIBAN = body + validation, accountBIC = body, accountType = body, userId = param, cardsRef = with card creation, canAddCArd = with card creation */
-
     const {
         accountName,
         balance,
@@ -132,10 +128,14 @@ module.exports.deleteAccount_delete = async (req, res) => {
         const deleteAccount = await Account.deleteOne({
             _id: id
         });
+
+        // TODO: update user
+        // TODO: delete cards
+        // TODO: delete transactions
+        // TODO: update transactions ?
+
         res.status(201).json(deleteAccount);
     } catch (err) {
         res.status(400).send('An error occurred, account was not deleted');
     }
 };
-
-// TODO: chain deletion
