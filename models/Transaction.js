@@ -73,7 +73,7 @@ const transactionSchema = new mongoose.Schema({
 
     // REJECTED TRANSACTION
     // rejectionReason = invalid leikode (?), user cancellation or insufficient funds/balance
-    rejectionMotif: {
+    rejectionReason: {
         type: String,
         enum: ['Invalid Leikode', 'User cancellation', 'Insufficient funds']
     }
