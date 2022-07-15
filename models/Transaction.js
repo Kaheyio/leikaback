@@ -68,7 +68,7 @@ const transactionSchema = new mongoose.Schema({
     // PAST TRANSACTION
     category: {
         type: String,
-        enum: ['Groceries', 'Routine', 'Children and School', 'Healthcare', 'Housing', 'Mobility', 'Digital', 'Pets', 'Taxes', 'Other', 'Savings']
+        enum: ['Digital', 'Family', 'Groceries', 'Healthcare', 'Housing', 'Leisure', 'Moibility', 'Savings', 'Other']
     },
 
     // REJECTED TRANSACTION
