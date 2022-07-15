@@ -7,39 +7,33 @@ const mongoose = require('mongoose');
 const transactionSchema = new mongoose.Schema({
     // DO NOT SET DOCUMENT ID, IT'S AUTOMATIC 
 
-    // can be recipient account for transfer
+    // can be recipient account for wire transfer
     title: {
-        type: String,
-        required: true,
+        type: String
     },
-    amount: { //TODO only positive numbers
-        type: Number,
-        required: true
+    amount: {
+        type: Number
     },
-    amountNegative: Boolean,
+    isAmountNegative: Boolean,
     submissionDate: {
         // Date = 2022-07-01 00:00:00
-        type: Date,
-        required: true,
+        type: Date
     },
 
     // associated account
     accountRef: {
         type: mongoose.Types.ObjectId,
-        ref: 'account',
-        required: true
+        ref: 'account'
     },
 
     // transactionType = card or direct debit or wire transfer
     transactionType: {
         type: String,
-        enum: ['Card', 'Direct debit', 'Wire transfer'],
-        required: true
+        enum: ['Card', 'Direct Debit', 'Wire Transfer']
     },
-    // card number reference (check card schema) or direct debit reference or wire transfer note
+    // card number reference (check card) or direct debit reference or wire transfer note
     transactionRef: {
-        type: String,
-        required: true
+        type: String
     },
 
     // recipient account in case of wire transfer validated
@@ -48,8 +42,7 @@ const transactionSchema = new mongoose.Schema({
     // transactionStatus = incoming or pending (to be validated) or past or rejected
     transactionStatus: {
         type: String,
-        enum: ['Incoming', 'Pending', 'Past', 'Rejected'],
-        required: true
+        enum: ['Incoming', 'Pending', 'Past', 'Rejected']
     },
 
     // PENDING TRANSACTION
@@ -68,14 +61,14 @@ const transactionSchema = new mongoose.Schema({
     // PAST TRANSACTION
     category: {
         type: String,
-        enum: ['Digital', 'Family', 'Groceries', 'Healthcare', 'Housing', 'Leisure', 'Moibility', 'Savings', 'Other']
+        enum: ['Digital', 'Family', 'Groceries', 'Healthcare', 'Housing', 'Leisure', 'Mobility', 'Savings', 'Other']
     },
 
     // REJECTED TRANSACTION
-    // rejectionReason = invalid leikode (?), user cancellation or insufficient funds/balance
+    // rejectionReason = invalid leikode (?), user declined or insufficient funds/balance
     rejectionReason: {
         type: String,
-        enum: ['Invalid Leikode', 'User cancellation', 'Insufficient funds']
+        enum: ['Invalid Leikode', 'User Declined', 'Insufficient Funds']
     }
 });
 

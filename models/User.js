@@ -31,7 +31,10 @@ const userSchema = new mongoose.Schema({
     address: [String],
 
     // recipient/beneficiary of wire transfer
-    transferBeneficiaries: [{ type: mongoose.Types.ObjectId, ref: 'beneficiary' }]
+    transferBeneficiaries: [{ 
+        type: mongoose.Types.ObjectId, 
+        ref: 'beneficiary' 
+    }]
 }, {
     timestamps: true
 });

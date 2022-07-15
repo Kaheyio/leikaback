@@ -10,7 +10,7 @@ const Account = require('../models/Account');
 
 // GET ALL CARDS
 module.exports.getCards_get = async (req, res) => {
-    const cards = await Card.find();
+    const cards = await Card.find({}).populate("accountRef").populate("cardHolder");
 
     if (cards) {
         res.status(201).json(cards);
@@ -25,7 +25,7 @@ module.exports.getCardById_get = async (req, res) => {
 
     const card = await Card.findById({
         _id: id
-    });
+    }).populate("accountRef").populate("cardHolder");
 
     if (card) {
         res.status(201).send(card);
@@ -40,7 +40,7 @@ module.exports.getUserCards_get = async (req, res) => {
 
     const card = await Card.find({
         cardHolder
-    });
+    }).populate("accountRef").populate("cardHolder");
 
     res.send(card);
 };
@@ -50,11 +50,11 @@ module.exports.getUserCards_get = async (req, res) => {
 module.exports.getAccountCards_get = async (req, res) => {
     const accountRef = req.params.accountRef;
 
-    const card = await Card.find({
+    const cards = await Card.find({
         accountRef
-    });
+    }).populate("accountRef").populate("cardHolder");
 
-    res.send(card);
+    res.send(cards);
 };
 
 
@@ -83,7 +83,7 @@ module.exports.createCard_post = async (req, res) => {
         return res.status(400).send('This card is already registered');
     };
 
-    // check expirationDate and set cardStatus accordingly
+    // check expirationDate (if = passed) and set cardStatus accordingly ( = expired)
     // 1) set expirationDate(from YYYY-mm in body to Date)
     const setExpirationDate = new Date(expirationDate);
     // 2) set current date
@@ -167,7 +167,7 @@ module.exports.deleteCard_delete = async (req, res) => {
         });
 
         //TODO: update accounts (cardsRef + canAddCard)
-        //TODO: transaction that has cardNumber as transactionRef ?
+        //TODO: transaction that has cardNumber as transactionRef
 
         
 

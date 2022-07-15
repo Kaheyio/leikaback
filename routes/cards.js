@@ -21,6 +21,6 @@ router.get('/account/:accountRef', cardCrudController.getAccountCards_get);
 router.post('/user/:cardHolder/account/:accountRef', cardCrudController.createCard_post);
 
 // DELETE CARD WITH CARD ID
-router.delete('/:id', cardCrudController.deleteCard_delete);
+router.delete('/delete/:id', cardCrudController.deleteCard_delete);
 
 module.exports = router;

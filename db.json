@@ -1,0 +1,58 @@
+{
+    "users": [
+        {},
+        {}
+    ],
+    "accounts": [
+        {},
+        {}
+    ],
+    "cards": [
+        {
+            "cardNumber": "4275 3156 0372 5495",
+            "cardCVV": "875",
+            "paymentNetwork": "Visa",
+            "expirationDate": "2022-08",
+            "cardStatus": "Valid"  
+        },
+        {},
+        {}
+    ],
+    "transactions": [
+        {"__comment": "PAST"},
+        {
+            "title": "Hugo's School Fees",
+            "amount": 140,
+            "submissionDate": "2022-01-15T15:45:23Z",
+            "transactionType": "Card",
+            "transactionRef": "4275 3156 0372 5493",
+            "transactionStatus": "Past",
+            "category": "Family"
+        },
+        {
+            "title": "Car Insurance",
+            "amount": 340,
+            "submissionDate": "2022-04-03T08:32:13Z",
+            "transactionType": "Direct Debit",
+            "transactionRef": "Direct Debit : FR20ZZZ107514 Allianz IARD",
+            "transactionStatus": "Past",
+            "category": "Mobility"
+        },
+        {"__comment": "INCOMING"},
+        {},
+        {"__comment": "REJECTED"},
+        {
+            "userValidationStatus": "",
+            "bankValidationStatus": "",
+            "rejectionReason": ""
+        },
+        {"__comment": "PENDING"},
+        {},
+        {"__comment": "WIRE TRANSFER"},
+        {}
+    ],
+    "beneficiaries": [
+        {},
+        {}
+    ]
+}
