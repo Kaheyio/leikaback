@@ -48,7 +48,7 @@ module.exports.createBeneficiary_post = async (req, res) => {
 
 };
 
-
+// TODO: chain deletion
 // DELETE BENEFICIARY
 module.exports.deleteBeneficiary_delete = async (req, res) => {
     const id = req.params.id;

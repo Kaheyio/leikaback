@@ -35,7 +35,6 @@ const cardSchema = new mongoose.Schema({
     // limits (plafonds) for card payment. NOT NEEDED IN OUR CASE ?
     // limits: Number,
 
-    // TODO: add expiration date and set cardStatus to Expired 
     // for ex 2024-03 (= Fri Mar 01 2024 01:00:00 GMT+0100 (heure normale d’Europe centrale))
     expirationDate: Date,
     

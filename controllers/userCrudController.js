@@ -85,7 +85,7 @@ module.exports.registerUser_post = async (req, res) => {
     // save user
     await user.save();
 
-    // TODO: update user's accounts array + transferBeneficiaries
+    // TODO: update transferBeneficiaries
 
     await res.status(201).send({
         created_user: user.id
@@ -94,6 +94,7 @@ module.exports.registerUser_post = async (req, res) => {
 };
 
 
+// TODO: chain deletion
 // DELETE ONE USER (by id)
 module.exports.deleteUser_delete = async (req, res) => {
     const id = req.params.id;

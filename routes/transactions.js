@@ -5,17 +5,23 @@ const transactionCrudController = require('../controllers/transactionCrudControl
 // route = /api/transactions/
 
 // GET ALL 
-router.get('');
+router.get('/', transactionCrudController.getTransactions_get);
 
 // GET WITH FILTERS //
-
+// get by date (today, yesterday, before)
 
 // CREATE
+// create generic transactions (admin)
 router.post('');
+
+// create wire transfers (user actions)
+
+// UPDATE
+// update status of transaction for pending transactions : userValidationStatus + check balance (bankValidationStatus)
 
 
 // DELETE
-router.delete('');
+router.delete('/:id', transactionCrudController.deleteTransaction_delete);
 
 
 module.exports = router;

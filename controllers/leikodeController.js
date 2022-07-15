@@ -7,7 +7,7 @@ module.exports.leikode_post = async (req, res) => {
     const user = await User.findById({ _id: req.user._id});
 
     const leikode = req.body.leikode;
-    // TODO: test validation in client
+    // TODO: test validation in front
     if (!leikode) {
         return res.status(400).send('Please enter your Leikode');
     }
@@ -18,6 +18,3 @@ module.exports.leikode_post = async (req, res) => {
     }
     await res.send({message: 'Your transaction has been validated'});
 };
-
-
-// TODO: GENERATE LEIKODE ON FIRST CONNECTION (EDIT LEIKODE OR ASK FOR LEIKODE GENERATION IN CONTACT FORM)
