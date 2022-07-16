@@ -1,0 +1,82 @@
+{
+    "transactions": [
+        {"__credit_ccount_of_test4": "62cb4275e74bedd85397c329"},
+        {"__comment": "PAST"},
+        {
+            "title": "Marseille Swimming Club",
+            "amount": -250,
+            "submissionDate": "2022-01-15T15:45:23Z",
+            "transactionType": "Card",
+            "transactionRef": "4275 3156 0372 5493",
+            "transactionStatus": "Past",
+            "category": "Leisure"
+        },
+        {
+            "title": "Car Insurance",
+            "amount": -340,
+            "submissionDate": "2022-04-03T08:32:13Z",
+            "transactionType": "Direct Debit",
+            "transactionRef": "Direct Debit : FR20ZZZ107514 Allianz IARD",
+            "transactionStatus": "Past",
+            "category": "Mobility"
+        },
+        {
+            "title": "Fitness Park - Refund",
+            "amount": 30,
+            "submissionDate": "2022-07-17T08:32:13Z",
+            "transactionType": "Card",
+            "transactionRef": "4275 3156 0372 5493",
+            "transactionStatus": "Past",
+            "category": "Leisure"
+        },
+
+        {"__comment": "INCOMING"},
+        {
+            "title": "Carrefour City",
+            "amount": -155.29,
+            "submissionDate": "2022-07-18T16:32:03Z",
+            "transactionType": "Card",
+            "transactionRef": "4275 3156 0372 5493",
+            "transactionStatus": "Incoming",
+            "estimatedDate": "2022-07-21T16:32:03Z",
+            "category": "Groceries"
+        },
+
+        {"__comment": "REJECTED"},
+        {
+            "title": "Foodspring Orders",
+            "amount": -45.5,
+            "submissionDate": "2022-07-10T16:32:03Z",
+            "transactionType": "Card",
+            "transactionRef": "4275 3156 0372 5493",
+            "transactionStatus": "Rejected",
+            "category": "Groceries",
+            "rejectionReason": "Insufficient Funds"
+        },
+        
+        {"__comment": "PENDING"},
+        {
+            "title": "Amazon Orders",
+            "amount": -28.8,
+            "submissionDate": "2022-07-16T11:00:00Z",
+            "transactionType": "Card",
+            "transactionRef": "4275 3156 0372 5493",
+            "transactionStatus": "Pending",
+            "category": "Digital"
+        },
+        {
+            "title": "Emmaüs - Charity Donation",
+            "amount": -100,
+            "submissionDate": "2022-07-17T16:00:00Z",
+            "transactionType": "Card",
+            "transactionRef": "4275 3156 0372 5493",
+            "transactionStatus": "Pending",
+            "category": "Other"
+        },
+
+        {"__credit_ccount_of_test4": "62cb4275e74bedd85397c329"},
+        {"__savings_account_of_test4": "62cb49c322e3c4aefe85c589"},
+        {"__comment": "WIRE TRANSFER"},
+        {}
+    ]
+}

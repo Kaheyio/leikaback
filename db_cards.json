@@ -1,0 +1,13 @@
+{
+    "cards": [
+        {
+            "cardNumber": "4275 3156 0372 5495",
+            "cardCVV": "875",
+            "paymentNetwork": "Visa",
+            "expirationDate": "2022-08",
+            "cardStatus": "Valid"  
+        },
+        {},
+        {}
+    ]
+}

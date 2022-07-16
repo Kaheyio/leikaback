@@ -4,11 +4,13 @@ const Card = require('../models/Card');
 
 const Account = require('../models/Account');
 
-// TODO: ask for a new card, block card
+// TODO: ask for a new card, + block card if expired or on user's request
+// TODO: check expiration date and update cardStatus when card is used
+
 
 // GET ALL CARDS
 module.exports.getCards_get = async (req, res) => {
-    const cards = await Card.find();
+    const cards = await Card.find({}).populate("accountRef").populate("cardHolder");
 
     if (cards) {
         res.status(201).json(cards);
@@ -23,7 +25,7 @@ module.exports.getCardById_get = async (req, res) => {
 
     const card = await Card.findById({
         _id: id
-    });
+    }).populate("accountRef").populate("cardHolder");
 
     if (card) {
         res.status(201).send(card);
@@ -38,7 +40,7 @@ module.exports.getUserCards_get = async (req, res) => {
 
     const card = await Card.find({
         cardHolder
-    });
+    }).populate("accountRef").populate("cardHolder");
 
     res.send(card);
 };
@@ -48,11 +50,11 @@ module.exports.getUserCards_get = async (req, res) => {
 module.exports.getAccountCards_get = async (req, res) => {
     const accountRef = req.params.accountRef;
 
-    const card = await Card.find({
+    const cards = await Card.find({
         accountRef
-    });
+    }).populate("accountRef").populate("cardHolder");
 
-    res.send(card);
+    res.send(cards);
 };
 
 
@@ -63,8 +65,6 @@ module.exports.getAccountCards_get = async (req, res) => {
 module.exports.createCard_post = async (req, res) => {
     const accountRef = req.params.accountRef;
     const cardHolder = req.params.cardHolder;
-
-    /* TODO: cardNumber = body, cardCVV = body, accountRef = param, cardHolder = param, paymentNetwork = body, expirationDate = body + validation, cardStatus = body + validation */
 
     const {
         cardNumber,
@@ -83,7 +83,7 @@ module.exports.createCard_post = async (req, res) => {
         return res.status(400).send('This card is already registered');
     };
 
-    // check expirationDate and set cardStatus accordingly
+    // check expirationDate (if = passed) and set cardStatus accordingly ( = expired)
     // 1) set expirationDate(from YYYY-mm in body to Date)
     const setExpirationDate = new Date(expirationDate);
     // 2) set current date
@@ -99,12 +99,20 @@ module.exports.createCard_post = async (req, res) => {
         _id: accountRef
     });
 
-    // check if accountType = Savings, no card creation
+    // check if accountType = Savings, no card creation and canAddCard = false
     if (account.accountType == 'Savings') {
+
+        const noSavingsCard = await Account.findByIdAndUpdate({
+            _id: accountRef
+        }, {
+            canAddCard: false
+        });
+        await noSavingsCard.save();
+
         return res.status(400).send('Your card cannot be associated to a savings account');
     }
 
-    // TODO: set limit of 2 cards by credit account (if account.canAddCard = false, no new card)
+    // set limit of 2 cards by credit account (if account.canAddCard = false, no new card)
     if (account.cardsRef.length >= 2) {
 
         const updateCanAddCard = await Account.findByIdAndUpdate({
@@ -148,7 +156,7 @@ module.exports.createCard_post = async (req, res) => {
     });
 };
 
-
+// TODO: chain deletion
 // DELETE A CARD
 module.exports.deleteCard_delete = async (req, res) => {
     const id = req.params.id;
@@ -157,6 +165,12 @@ module.exports.deleteCard_delete = async (req, res) => {
         const deleteCard = await Card.deleteOne({
             _id: id
         });
+
+        //TODO: update accounts (cardsRef + canAddCard)
+        //TODO: transaction that has cardNumber as transactionRef
+
+        
+
         res.status(201).json(deleteCard);
     } catch (err) {
         res.status(400).send('An error occurred, card was not deleted');
@@ -164,4 +178,3 @@ module.exports.deleteCard_delete = async (req, res) => {
 };
 
 
-// TODO: check expiration date and update cardStatus when card is used

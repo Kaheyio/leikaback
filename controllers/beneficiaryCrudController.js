@@ -14,7 +14,7 @@ or made on an external account = change balance of sender account
 
 // GET ALL BENEFICIARIES
 module.exports.getBeneficiaries_get = async (req, res) => {
-    const beneficiaries = await Beneficiary.find({}).populate("transferHistory");
+    const beneficiaries = await Beneficiary.find({}).populate("transferHistory").populate("userId");
 
     if (beneficiaries) {
         res.status(201).json(beneficiaries);
@@ -29,7 +29,7 @@ module.exports.getBeneficiaryById_get = async (req, res) => {
 
     const beneficiary = await Beneficiary.findById({
         _id: id
-    }).populate("transferHistory");
+    }).populate("transferHistory").populate("userId");
 
     if (beneficiary) {
         res.status(201).send(beneficiary);
@@ -41,14 +41,15 @@ module.exports.getBeneficiaryById_get = async (req, res) => {
 
 // CREATE A BENEFICIARY (AND ADD IT TO USER )
 module.exports.createBeneficiary_post = async (req, res) => {
+    const usersRef = req.params.usersRef;
 
-    /* TODO: accountIBAN = body + validation (is unique in user's profile + not valid if incorrect format ?) + if corresponds to a leika account get info of said account instead of creating a beneficiary account, beneficiaryName = body, accountTitle, transferHistory = update in transaction crud */
+    /* TODO: accountIBAN = body + validation (is unique in user's profile + not valid if incorrect format ?) + if corresponds to a leika account get info of said account instead of creating a beneficiary account, beneficiaryName = body + validation (unique in user's profile), accountTitle, transferHistory = update in transaction crud, userId = param */
 
-    
+    // TODO: update user = transferBeneficiaries
 
 };
 
-
+// TODO: chain deletion
 // DELETE BENEFICIARY
 module.exports.deleteBeneficiary_delete = async (req, res) => {
     const id = req.params.id;
@@ -57,6 +58,9 @@ module.exports.deleteBeneficiary_delete = async (req, res) => {
         const deleteBeneficiary = await Beneficiary.deleteOne({
             _id: id
         });
+
+        //TODO: update user
+        
         res.status(201).json(deleteBeneficiary);
     } catch (err) {
         res.status(400).send('An error occurred, beneficiary was not deleted');

@@ -1,6 +1,7 @@
 /***** ACCOUNT CRUD *****/
 
 const Account = require('../models/Account');
+const User = require('../models/User');
 
 // GET ALL ACCOUNTS
 module.exports.getAccounts_get = async (req, res) => {
@@ -10,7 +11,7 @@ module.exports.getAccounts_get = async (req, res) => {
         res.status(201).json(accounts);
     } else {
         res.status(400).send('No account found');
-    }
+    };
 };
 
 // GET ACCOUNT BY ACCOUNT ID
@@ -25,7 +26,7 @@ module.exports.getAccountById_get = async (req, res) => {
         res.status(201).send(account);
     } else {
         res.status(400).send('This account doesn\'t exist');
-    }
+    };
 };
 
 
@@ -46,8 +47,6 @@ module.exports.getUserAccounts_get = async (req, res) => {
 module.exports.createAccount_post = async (req, res) => {
     const userId = req.params.userId;
 
-    /* TODO: accountName = body + validation (unique), balance = increment with transactions or body for savings or default (10), branchCode = body, counterCode = body, accountNumber = body + validation (unique), keyBIS = body, domiciliation = body, accountIBAN = body + validation, accountBIC = body, accountType = body, userId = param, cardsRef = with card creation, canAddCArd = with card creation */
-
     const {
         accountName,
         balance,
@@ -62,20 +61,35 @@ module.exports.createAccount_post = async (req, res) => {
     } = req.body;
 
 
-    
-    // TODO: validation
-    
     // check if accountName already exists
+    const checkAccountName = await Account.find({
+        accountName
+    });
 
+    if (checkAccountName) {
+        return res.status(400).send('An account is already registered to this name');
+    }
 
     // check if accountNumber already exists
+    const checkAccountNumber = await Account.find({
+        accountNumber
+    });
+
+    if (checkAccountNumber) {
+        return res.status(400).send('An account is already registered to this account number');
+    }
 
     // check if accountIBAN already exists
-   
+    const checkAccountIBAN = await Account.find({
+        accountIBAN
+    });
 
-    
+    if (checkAccountIBAN) {
+        return res.status(400).send('An account is already registered to this IBAN');
+    }
 
-    // balance is set to 10 by default, change amount in transactions crud or set amount in body
+    // !!! balance is set to 10 by default on account creation, change amount in transactions crud or set amount in body !!!
+    // cardsRef and canAddCard are updated on on card creation
 
     const account = new Account({
         accountName,
@@ -87,13 +101,22 @@ module.exports.createAccount_post = async (req, res) => {
         domiciliation,
         accountIBAN,
         accountBIC,
-        accountType
+        accountType,
+        userId
     });
 
     await account.save();
 
 
-    // TODO: update in user = accounts
+    // update accounts in user 
+    const updateUserAccounts = await User.findByIdAndUpdate({
+        _id: userId
+    }, {
+        $addToSet: {
+            accounts: account._id
+        }
+    });
+    await updateUserAccounts.save();
 
     await res.status(201).send({
         created_account: account.id,
@@ -101,13 +124,8 @@ module.exports.createAccount_post = async (req, res) => {
     });
 };
 
-// TODO: wire transfer method
-/* wire transfer is either made on a leika bank = change balance of sender account and recipient account
-or made on an external account = change balance of sender account 
-+ set new amount in beneficiary account
-+ no wire transfer possible on someone else's savings account !!!
-*/
 
+// TODO: chain deletion
 // DELETE ACCOUNT
 module.exports.deleteAccount_delete = async (req, res) => {
     const id = req.params.id;
@@ -116,6 +134,12 @@ module.exports.deleteAccount_delete = async (req, res) => {
         const deleteAccount = await Account.deleteOne({
             _id: id
         });
+
+        // TODO: update user
+        // TODO: delete cards
+        // TODO: delete transactions
+        // TODO: update transactions ?
+
         res.status(201).json(deleteAccount);
     } catch (err) {
         res.status(400).send('An error occurred, account was not deleted');

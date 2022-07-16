@@ -15,6 +15,6 @@ router.get('/:id', beneficiaryCrudController.getBeneficiaryById_get);
 router.post('/user/:userId', beneficiaryCrudController.createBeneficiary_post);
 
 // DELETE BENEFICIARY WITH ACCOUNT ID
-router.delete('/:id', beneficiaryCrudController.deleteBeneficiary_delete);
+router.delete('/delete/:id', beneficiaryCrudController.deleteBeneficiary_delete);
 
 module.exports = router;
