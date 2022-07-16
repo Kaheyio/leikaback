@@ -6,8 +6,6 @@ const Account = require('../models/Account');
 
 // TODO: update balance of account = sum of all associated transactions (including transfer made or received)
 // TODO: update transferHistory in beneficiary
-//TODO: check if account balance is ok to confirm validation of pending transaction
-// TODO: limit leikode validation to 3 trials, if still invalid, transaction is rejected
 
 // TODO: wire transfer method
 /* wire transfer is either made on a leika bank = change balance of sender account and recipient account
@@ -87,7 +85,7 @@ module.exports.createGenericTransaction_post = async (req, res) => {
     const currentDate = new Date;
     const setSubmissionDate = new Date(submissionDate);
 
-    // NO VALIDATION BECAUSE PREVENTS FROM CREATING FUTURE INCOMING TRANSACTIONS
+    // NO VALIDATION BECAUSE PREVENTS FROM CREATING FUTURE TRANSACTIONS
     // validate submissionDate (can't be future) OK
     // if (setSubmissionDate > currentDate) {
     //     return res.status(400).send('Submission date is incorrect (can\'t be in the future)');
@@ -147,9 +145,8 @@ module.exports.createGenericTransaction_post = async (req, res) => {
         if (setEstimatedDate <= currentDate) {
             return res.status(400).send('Estimated date must be future');
         };
-    }
+    };
 
-    // select category in front form
 
     // FOR FAKE REJECTED TRANSACTIONS: rejectionReason = Insufficient Funds
 
@@ -193,7 +190,7 @@ module.exports.createGenericTransaction_post = async (req, res) => {
 
 // TODO: CREATE WIRE TRANSFERS (with credit and savings account)
 // wire transfer becomes incoming
-/* TODO: title = accountName or number, submissionDate = now, transactionType = wire transfer, targetAccount = param, transactionRef = body, category = select category in front, estimatedDate, bankValidationStatus */
+/* TODO: title = accountName or number, submissionDate = now, transactionType = wire transfer, targetAccount = param, transactionRef = body, category = select category in front form, estimatedDate, bankValidationStatus */
 // update beneficiary transferHistory
 
 
@@ -241,8 +238,6 @@ module.exports.deleteTransaction_delete = async (req, res) => {
 
 
         // TODO: update beneficiary (wire transfer)
-
-        // TODO: update for pending transaction ?
 
 
         // delete transaction

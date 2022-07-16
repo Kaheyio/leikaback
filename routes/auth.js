@@ -7,7 +7,7 @@ const { requireAuth } = require('../middlewares/authMiddleware');
 
 // DON'T USE SAME ROUTES FOR SAME METHODS = for example get /logged blocks get /logout
 
-// NB: full route is localhost:PORT/api/auth/...
+// NB: full route is .../api/auth/...
 
 // LOGIN
 // check email + password on login + generate leikode and cookie with token  on login

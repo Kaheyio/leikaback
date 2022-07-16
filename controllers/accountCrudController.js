@@ -62,21 +62,27 @@ module.exports.createAccount_post = async (req, res) => {
 
 
     // check if accountName already exists
-    const checkAccountName = await Account.find({ accountName });
+    const checkAccountName = await Account.find({
+        accountName
+    });
 
     if (checkAccountName) {
         return res.status(400).send('An account is already registered to this name');
     }
 
     // check if accountNumber already exists
-    const checkAccountNumber = await Account.find({ accountNumber });
+    const checkAccountNumber = await Account.find({
+        accountNumber
+    });
 
     if (checkAccountNumber) {
         return res.status(400).send('An account is already registered to this account number');
     }
 
     // check if accountIBAN already exists
-    const checkAccountIBAN = await Account.find({ accountIBAN });
+    const checkAccountIBAN = await Account.find({
+        accountIBAN
+    });
 
     if (checkAccountIBAN) {
         return res.status(400).send('An account is already registered to this IBAN');

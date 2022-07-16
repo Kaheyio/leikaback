@@ -1,23 +1,4 @@
 {
-    "users": [
-        {},
-        {}
-    ],
-    "accounts": [
-        {},
-        {}
-    ],
-    "cards": [
-        {
-            "cardNumber": "4275 3156 0372 5495",
-            "cardCVV": "875",
-            "paymentNetwork": "Visa",
-            "expirationDate": "2022-08",
-            "cardStatus": "Valid"  
-        },
-        {},
-        {}
-    ],
     "transactions": [
         {"__credit_ccount_of_test4": "62cb4275e74bedd85397c329"},
         {"__comment": "PAST"},
@@ -83,14 +64,19 @@
             "transactionStatus": "Pending",
             "category": "Digital"
         },
+        {
+            "title": "Emmaüs - Charity Donation",
+            "amount": -100,
+            "submissionDate": "2022-07-17T16:00:00Z",
+            "transactionType": "Card",
+            "transactionRef": "4275 3156 0372 5493",
+            "transactionStatus": "Pending",
+            "category": "Other"
+        },
 
         {"__credit_ccount_of_test4": "62cb4275e74bedd85397c329"},
         {"__savings_account_of_test4": "62cb49c322e3c4aefe85c589"},
         {"__comment": "WIRE TRANSFER"},
-        {}
-    ],
-    "beneficiaries": [
-        {},
         {}
     ]
 }

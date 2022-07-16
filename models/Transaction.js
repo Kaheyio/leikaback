@@ -15,7 +15,7 @@ const transactionSchema = new mongoose.Schema({
         type: Number
     },
     isAmountNegative: Boolean,
-    
+
     submissionDate: {
         // Date = 2022-07-01 00:00:00
         type: Date
@@ -53,7 +53,7 @@ const transactionSchema = new mongoose.Schema({
         enum: ['Pending', 'Cancelled', 'Validated']
     },
 
-    // bankValidationStatus (after user validation, bank validates if balance is ok)
+    // bankValidationStatus (after user validation, bank validates if balance is ok + if leikode is invalid)
     bankValidationStatus: Boolean,
 
     // INCOMING TRANSACTION

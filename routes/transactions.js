@@ -4,10 +4,6 @@ const transactionCrudController = require('../controllers/transactionCrudControl
 
 const leikodeController = require('../controllers/leikodeController');
 
-// to protect a route, use authMiddleware
-const { requireAuth } = require('../middlewares/authMiddleware');
-
-
 
 // route = /api/transactions/
 
@@ -32,7 +28,7 @@ router.post('/account/:accountRef', transactionCrudController.createGenericTrans
 
 
 // validate pending transactions with leikode and update status
-// router.post('/protected/validation', requireAuth, leikodeController.leikode_post);
+router.post('/user/:userId/validate/:id', leikodeController.validatePendingTransaction_post);
 
 
 // DELETE
