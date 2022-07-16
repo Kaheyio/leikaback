@@ -1,7 +1,6 @@
 const router = require('express').Router();
 
 const authController = require('../controllers/authController');
-const leikodeController = require('../controllers/leikodeController');
 
 // to protect a route, use authMiddleware
 const { requireAuth } = require('../middlewares/authMiddleware');
@@ -17,8 +16,6 @@ router.post('/login', authController.login_post);
 // PROTECTED ROUTE
 router.get('/protected/logged', requireAuth, authController.loggedRoute_get);
 
-// VALIDATE TRANSACTIONS WITH LEIKODE IN PROTECTED ROUTE
-// router.post('/protected/validation', requireAuth, leikodeController.leikode_post);
 
 // TODO: PROTECT THIS ROUTE ???
 /* TODO: there should be a log out method as POST for when user clicks on the button (but what is sent as payload to the server ???)

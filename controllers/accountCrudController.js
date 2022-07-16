@@ -11,7 +11,7 @@ module.exports.getAccounts_get = async (req, res) => {
         res.status(201).json(accounts);
     } else {
         res.status(400).send('No account found');
-    }
+    };
 };
 
 // GET ACCOUNT BY ACCOUNT ID
@@ -26,7 +26,7 @@ module.exports.getAccountById_get = async (req, res) => {
         res.status(201).send(account);
     } else {
         res.status(400).send('This account doesn\'t exist');
-    }
+    };
 };
 
 

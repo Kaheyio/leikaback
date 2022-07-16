@@ -15,12 +15,13 @@ const transactionSchema = new mongoose.Schema({
         type: Number
     },
     isAmountNegative: Boolean,
+    
     submissionDate: {
         // Date = 2022-07-01 00:00:00
         type: Date
     },
 
-    // associated account
+    // associated account (parameter of request)
     accountRef: {
         type: mongoose.Types.ObjectId,
         ref: 'account'

@@ -12,8 +12,9 @@ const accountSchema = new mongoose.Schema({
     // for ex Main, Secondary, Savings, Shared
     accountName: String,
 
-    // TODO: balance = sum of all associated transactions
+    // balance = sum of all associated transactions
     // set to 10 by default and increment/decrement
+    // TODO: set bank overdraft (300 for credit and 10 for savings)
     balance: {
         type: Number,
         default: 10
