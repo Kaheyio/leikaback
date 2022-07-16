@@ -34,11 +34,11 @@ module.exports.getAccountById_get = async (req, res) => {
 module.exports.getUserAccounts_get = async (req, res) => {
     const userId = req.params.userId;
 
-    const account = await Account.find({
+    const accounts = await Account.find({
         userId
     }).populate("cardsRef");
 
-    res.send(account);
+    res.send(accounts);
 };
 
 
