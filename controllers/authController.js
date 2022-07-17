@@ -90,7 +90,7 @@ module.exports.logout_get = async (req, res) => {
     await res.clearCookie('authToken', {
         // httpOnly: true,
         sameSite: 'None',
-        secure: process.env.NODE_ENV === "production"
+        secure: true
     }).status(200).json({ message: 'User logged out successfully'});
 };
 
