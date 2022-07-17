@@ -43,9 +43,9 @@ app.use(cookieParser());
 /* [NB Cross-origin resource sharing (CORS) = browser mechanism that allows a web page to use assets and data from other pages or domains.
 Extends and adds flexibility to the same-origin policy (SOP). However, also provides potential for cross-domain attacks, if a website's CORS policy is poorly configured and implemented.]
 The cors package available in the npm registry is used to tackle CORS errors in a Node.js application. */
-// if other method doesn't work in production
+// cors make the app crash !!!
 // app.use(cors());
-
+app.options('*', cors());
 // OR
 app.use(function (req, res, next) {
     // create whitelist of domains
