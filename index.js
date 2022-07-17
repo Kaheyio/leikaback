@@ -71,7 +71,7 @@ app.use('/api/transactions', transactionsRoute);
 app.use('/api/cards', cardsRoute);
 app.use('/api/beneficiaries', beneficiariesRoute);
 
-// localhost port = 3000
+// localhost port or heroku port
 app.listen(port, () => console.log(`Server works on port: `, port));
 
 // set the public folder as static (to display assets such as images)
