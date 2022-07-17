@@ -65,9 +65,9 @@ module.exports.login_post = async (req, res) => {
     // cookie's maxAge = 1 hour 
     // TODO: httponly for dev, and add secure for prod with https
     res.cookie('authToken', token, {
-        httpOnly: true,
+        // httpOnly: true,
         maxAge: maxAge * 1000,
-        // sameSite: 'None',
+        sameSite: 'None',
         secure: process.env.NODE_ENV === "production"
     });
 
@@ -87,6 +87,10 @@ module.exports.loggedRoute_get = async (req, res) => {
 
 /****** LOG OUT METHOD ******/
 module.exports.logout_get = async (req, res) => {
-    await res.clearCookie('authToken').status(200).json({ message: 'User logged out successfully'});
+    await res.clearCookie('authToken', {
+        // httpOnly: true,
+        sameSite: 'None',
+        secure: process.env.NODE_ENV === "production"
+    }).status(200).json({ message: 'User logged out successfully'});
 };
 
