@@ -67,8 +67,8 @@ module.exports.login_post = async (req, res) => {
     res.cookie('authToken', token, {
         // httpOnly: true,
         maxAge: maxAge * 1000,
-        sameSite: 'None',
-        secure: process.env.NODE_ENV === "production"
+        // sameSite: 'None',
+        // secure: process.env.NODE_ENV === "production"
     });
 
     // send user data + leikode if credentials are correct
