@@ -32,10 +32,13 @@ module.exports.getAccountById_get = async (req, res) => {
 
 // GET A USER'S ACCOUNT(S) BY USER ID
 module.exports.getUserAccounts_get = async (req, res) => {
-    const userId = req.params.userId;
+    // TODO: where user id = userId in account
+    const id = req.params.id;
+    // const userId = req.params.userId;
+    const user = await User.find({ _id: id });
 
     const accounts = await Account.find({
-        userId
+        userId: user._id
     }).populate("cardsRef");
 
     await res.send(accounts);

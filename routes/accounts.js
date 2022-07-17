@@ -14,7 +14,7 @@ router.get('/', accountCrudController.getAccounts_get);
 router.get('/:id', accountCrudController.getAccountById_get);
 
 // get all accounts of one user
-router.get('/user/:userId', accountCrudController.getUserAccounts_get);
+router.get('/user/:id', accountCrudController.getUserAccounts_get);
 
 // CREATE USER ACCOUNT WITH USER ID
 router.post('/user/:userId', accountCrudController.createAccount_post);
