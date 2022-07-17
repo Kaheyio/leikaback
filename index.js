@@ -45,7 +45,7 @@ Extends and adds flexibility to the same-origin policy (SOP). However, also prov
 The cors package available in the npm registry is used to tackle CORS errors in a Node.js application. */
 // cors make the app crash !!!
 // app.use(cors());
-app.options('*', cors());
+
 // OR
 app.use(function (req, res, next) {
     // create whitelist of domains
