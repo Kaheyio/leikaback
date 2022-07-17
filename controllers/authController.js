@@ -22,7 +22,6 @@ module.exports.login_post = async (req, res) => {
 
     // check email
     if (!user) {
-        // TODO: change message to Email and/or password incorrect
         return res.status(400).send('This email is not registered');
     };
 
@@ -30,7 +29,6 @@ module.exports.login_post = async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
-        // TODO: change message to Email and/or password incorrect
         return res.status(400).send('Invalid password');
     };
 
