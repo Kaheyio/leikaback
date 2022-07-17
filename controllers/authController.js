@@ -67,8 +67,9 @@ module.exports.login_post = async (req, res) => {
     // cookie's maxAge = 1 hour 
     // TODO: httponly for dev, and add secure for prod with https
     res.cookie('authToken', token, {
-        httpOnly: true,
+        // httpOnly: true,
         maxAge: maxAge * 1000,
+        sameSite: 'None',
         secure: process.env.NODE_ENV === "production"
     });
 

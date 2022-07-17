@@ -19,9 +19,9 @@ module.exports.getTransactions_get = async (req, res) => {
     const transactions = await Transaction.find({}).populate("accountRef");
 
     if (transactions) {
-        res.status(201).json(transactions);
+        await res.status(201).json(transactions);
     } else {
-        res.status(400).send('No transaction found');
+        await res.status(400).send('No transaction found');
     };
 };
 
@@ -32,9 +32,9 @@ module.exports.getAccountTransactions_get = async (req, res) => {
     const transactions = await Transaction.find({ accountRef }).populate("accountRef");
 
     if (transactions) {
-        res.status(201).json(transactions);
+        await res.status(201).json(transactions);
     } else {
-        res.status(400).send('No transaction found');
+        await res.status(400).send('No transaction found');
     };
 };
 
@@ -47,9 +47,9 @@ module.exports.getAccountTransactionsFiltered_get = async (req, res) => {
     const transactions = await Transaction.find({ accountRef, transactionStatus}).sort({submissionDate: 'desc'}).populate("accountRef");
     
     if (transactions) {
-        res.status(201).json(transactions);
+        await  res.status(201).json(transactions);
     } else {
-        res.status(400).send('No transaction found');
+        await  res.status(400).send('No transaction found');
     };
 };
 
@@ -245,8 +245,8 @@ module.exports.deleteTransaction_delete = async (req, res) => {
             _id: id
         });
 
-        res.status(201).json(deleteTransaction);
+        await res.status(201).json(deleteTransaction);
     } catch (err) {
-        res.status(400).send('An error occurred, transaction was not deleted');
+        await res.status(400).send('An error occurred, transaction was not deleted');
     }
 };

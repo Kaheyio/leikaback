@@ -8,9 +8,9 @@ module.exports.getAccounts_get = async (req, res) => {
     const accounts = await Account.find({}).populate("cardsRef");
 
     if (accounts) {
-        res.status(201).json(accounts);
+       await res.status(201).json(accounts);
     } else {
-        res.status(400).send('No account found');
+        await res.status(400).send('No account found');
     };
 };
 
@@ -23,9 +23,9 @@ module.exports.getAccountById_get = async (req, res) => {
     }).populate("cardsRef");
 
     if (account) {
-        res.status(201).send(account);
+        await res.status(201).send(account);
     } else {
-        res.status(400).send('This account doesn\'t exist');
+        await res.status(400).send('This account doesn\'t exist');
     };
 };
 
@@ -38,7 +38,7 @@ module.exports.getUserAccounts_get = async (req, res) => {
         userId
     }).populate("cardsRef");
 
-    res.send(accounts);
+    await res.send(accounts);
 };
 
 
@@ -140,8 +140,8 @@ module.exports.deleteAccount_delete = async (req, res) => {
         // TODO: delete transactions
         // TODO: update transactions ?
 
-        res.status(201).json(deleteAccount);
+        await res.status(201).json(deleteAccount);
     } catch (err) {
-        res.status(400).send('An error occurred, account was not deleted');
+        await res.status(400).send('An error occurred, account was not deleted');
     }
 };

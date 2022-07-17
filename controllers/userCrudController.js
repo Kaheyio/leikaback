@@ -16,9 +16,9 @@ module.exports.getUsers_get = async (req, res) => {
 
     
     if (users) {
-        res.status(201).json(users);
+        await res.status(201).json(users);
     } else {
-        res.status(400).send('No user found')
+        await res.status(400).send('No user found')
     }
 };
 
@@ -26,7 +26,7 @@ module.exports.getUsers_get = async (req, res) => {
 module.exports.getUserById_get = async (req, res) => {
     const id = req.params.id;
     const loggedUser = await User.findById({_id : id}).populate("accounts").populate("transferBeneficiaries");
-    res.send(loggedUser);
+    await res.send(loggedUser);
 };
 
 // REGISTER ONE USER (FOR APP TESTS)
@@ -113,9 +113,9 @@ module.exports.deleteUser_delete = async (req, res) => {
         const deleteBeneficiaries = await Beneficiary.deleteMany({ userId: id })
 
 
-        res.status(201).json({deleteUser, deleteAccount, deleteBeneficiaries});
+        await  res.status(201).json({deleteUser, deleteAccount, deleteBeneficiaries});
 
     } catch (err) {
-        res.status(400).send('An error occurred, user was not deleted');
+        await  res.status(400).send('An error occurred, user was not deleted');
     }
 };

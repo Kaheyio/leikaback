@@ -17,9 +17,9 @@ module.exports.getBeneficiaries_get = async (req, res) => {
     const beneficiaries = await Beneficiary.find({}).populate("transferHistory").populate("userId");
 
     if (beneficiaries) {
-        res.status(201).json(beneficiaries);
+        await res.status(201).json(beneficiaries);
     } else {
-        res.status(400).send('No beneficiary found');
+        await res.status(400).send('No beneficiary found');
     }
 };
 
@@ -32,9 +32,9 @@ module.exports.getBeneficiaryById_get = async (req, res) => {
     }).populate("transferHistory").populate("userId");
 
     if (beneficiary) {
-        res.status(201).send(beneficiary);
+        await res.status(201).send(beneficiary);
     } else {
-        res.status(400).send('This beneficiary doesn\'t exist');
+        await  res.status(400).send('This beneficiary doesn\'t exist');
     }
 };
 
@@ -61,8 +61,8 @@ module.exports.deleteBeneficiary_delete = async (req, res) => {
 
         //TODO: update user
         
-        res.status(201).json(deleteBeneficiary);
+        await res.status(201).json(deleteBeneficiary);
     } catch (err) {
-        res.status(400).send('An error occurred, beneficiary was not deleted');
+        await res.status(400).send('An error occurred, beneficiary was not deleted');
     }
 };

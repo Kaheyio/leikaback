@@ -13,9 +13,9 @@ module.exports.getCards_get = async (req, res) => {
     const cards = await Card.find({}).populate("accountRef").populate("cardHolder");
 
     if (cards) {
-        res.status(201).json(cards);
+        await res.status(201).json(cards);
     } else {
-        res.status(400).send('No card found')
+        await  res.status(400).send('No card found')
     }
 };
 
@@ -28,9 +28,9 @@ module.exports.getCardById_get = async (req, res) => {
     }).populate("accountRef").populate("cardHolder");
 
     if (card) {
-        res.status(201).send(card);
+        await  res.status(201).send(card);
     } else {
-        res.status(400).send('This card doesn\'t exist');
+        await  res.status(400).send('This card doesn\'t exist');
     }
 };
 
@@ -42,7 +42,7 @@ module.exports.getUserCards_get = async (req, res) => {
         cardHolder
     }).populate("accountRef").populate("cardHolder");
 
-    res.send(card);
+    await res.send(card);
 };
 
 
@@ -54,7 +54,7 @@ module.exports.getAccountCards_get = async (req, res) => {
         accountRef
     }).populate("accountRef").populate("cardHolder");
 
-    res.send(cards);
+    await res.send(cards);
 };
 
 
@@ -171,9 +171,9 @@ module.exports.deleteCard_delete = async (req, res) => {
 
         
 
-        res.status(201).json(deleteCard);
+        await res.status(201).json(deleteCard);
     } catch (err) {
-        res.status(400).send('An error occurred, card was not deleted');
+        await res.status(400).send('An error occurred, card was not deleted');
     }
 };
 
