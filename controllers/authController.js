@@ -70,7 +70,7 @@ module.exports.login_post = async (req, res) => {
         // httpOnly: true,
         maxAge: maxAge * 1000,
         sameSite: 'None',
-        secure: process.env.NODE_ENV == "production"
+        secure: true
     });
 
     // send user data + leikode if credentials are correct
