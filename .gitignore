@@ -3,5 +3,3 @@
 
 # .env file
 .env
-.env.development
-.env.production
