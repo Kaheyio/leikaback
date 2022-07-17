@@ -44,24 +44,24 @@ app.use(cookieParser());
 Extends and adds flexibility to the same-origin policy (SOP). However, also provides potential for cross-domain attacks, if a website's CORS policy is poorly configured and implemented.]
 The cors package available in the npm registry is used to tackle CORS errors in a Node.js application. */
 // if other method doesn't work in production
-// app.use(cors());
+app.use(cors());
 
 // OR
-app.use(function (req, res, next) {
-    // create whitelist of domains
-    const whitelist = ['https://leika.netlify.app', 'http://localhost:4200'];
-    const origin = req.headers.origin;
-    if (whitelist.includes(origin)) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    // res.setHeader('Access-Control-Allow-Origin', 'https://leika.netlify.app');
+// app.use(function (req, res, next) {
+//     // create whitelist of domains
+//     const whitelist = ['https://leika.netlify.app', 'http://localhost:4200'];
+//     const origin = req.headers.origin;
+//     if (whitelist.includes(origin)) {
+//         res.setHeader('Access-Control-Allow-Origin', origin);
+//     }
+//     // res.setHeader('Access-Control-Allow-Origin', 'https://leika.netlify.app');
     
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Set-Cookie: SameSite=None;Secure')
-    next();
-});
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
+//     res.setHeader('Access-Control-Allow-Credentials', true);
+//     res.setHeader('Set-Cookie: SameSite=None;Secure')
+//     next();
+// });
 
 
 // Routes
