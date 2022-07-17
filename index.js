@@ -1,5 +1,11 @@
+// to hide important credentials
+require('dotenv').config();
+const { API_PORT } = process.env;
+const port = process.env.PORT || process.env.API_PORT;
+
 const express = require('express');
-const app = express();
+let app = express();
+
 const mongoose = require('mongoose');
 const cors = require('cors');
 // Import Routes
@@ -14,10 +20,6 @@ const beneficiariesRoute = require('./routes/beneficiaries');
 // cookie parser
 const cookieParser = require('cookie-parser');
 
-// to hide important credentials
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 // Connect to DB
 mongoose.connect(process.env.DB_CONNECT, {
@@ -70,7 +72,7 @@ app.use('/api/cards', cardsRoute);
 app.use('/api/beneficiaries', beneficiariesRoute);
 
 // localhost port = 3000
-app.listen(process.env.PORT || process.env.API_PORT, () => console.log(`Server works`));
+app.listen(port, () => console.log(`Server works on port: `, port));
 
 // set the public folder as static (to display assets such as images)
 app.use(express.static(__dirname + '/public'));
