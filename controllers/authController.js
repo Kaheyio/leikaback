@@ -67,7 +67,6 @@ module.exports.login_post = async (req, res) => {
     res.cookie('authToken', token, {
         // httpOnly: true,
         maxAge: maxAge * 1000,
-        sameSite: 'None',
         secure: true
     });
 
@@ -89,7 +88,6 @@ module.exports.loggedRoute_get = async (req, res) => {
 module.exports.logout_get = async (req, res) => {
     await res.clearCookie('authToken', {
         // httpOnly: true,
-        sameSite: 'None',
         secure: true
     }).status(200).json({ message: 'User logged out successfully'});
 };
