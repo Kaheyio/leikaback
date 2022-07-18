@@ -42,7 +42,7 @@ module.exports.getUserAccounts_get = async (req, res) => {
 };
 
 
-// TEST : USERID FOR test4 = 62b43815c1687ee17ac1e9f0
+// TODO: recheck validation !!!
 // CREATE AN ACCOUNT
 module.exports.createAccount_post = async (req, res) => {
     const userId = req.params.userId;
@@ -57,36 +57,39 @@ module.exports.createAccount_post = async (req, res) => {
         domiciliation,
         accountIBAN,
         accountBIC,
-        accountType
+        accountType,
+        canAddCard
     } = req.body;
 
 
-    // check if accountName already exists
-    const checkAccountName = await Account.find({
-        accountName
+    // check if accountName already exists for this user
+    const checkAccountName = await Account.findOne({
+        accountName: accountName
     });
 
-    if (checkAccountName) {
+    if (checkAccountName !== null ) {
         return res.status(400).send('An account is already registered to this name');
-    }
+    };
+
 
     // check if accountNumber already exists
-    const checkAccountNumber = await Account.find({
-        accountNumber
+    const checkAccountNumber = await Account.findOne({
+        accountNumber: accountNumber
     });
 
-    if (checkAccountNumber) {
+    if (checkAccountNumber !== null) {
         return res.status(400).send('An account is already registered to this account number');
-    }
+    };
 
     // check if accountIBAN already exists
-    const checkAccountIBAN = await Account.find({
-        accountIBAN
+    const checkAccountIBAN = await Account.findOne({
+        accountIBAN: accountIBAN
     });
 
-    if (checkAccountIBAN) {
+    if (checkAccountIBAN !== null) {
         return res.status(400).send('An account is already registered to this IBAN');
-    }
+    };
+    console.log(checkAccountIBAN);
 
     // !!! balance is set to 10 by default on account creation, change amount in transactions crud or set amount in body !!!
     // cardsRef and canAddCard are updated on on card creation
@@ -102,7 +105,8 @@ module.exports.createAccount_post = async (req, res) => {
         accountIBAN,
         accountBIC,
         accountType,
-        userId
+        userId,
+        canAddCard
     });
 
     await account.save();
@@ -120,7 +124,7 @@ module.exports.createAccount_post = async (req, res) => {
 
     await res.status(201).send({
         created_account: account.id,
-        user_account: account.userId
+        user_associated: account.userId
     });
 };
 

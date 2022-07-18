@@ -7,7 +7,7 @@ const userCrudController = require('../controllers/userCrudController');
 
 // DON'T USE SAME ROUTES FOR SAME METHODS = for example get /:id blocks get /:email
 
-// NB: full route is localhost:PORT/api/users/...
+// NB: full route is .../api/users/...
 
 
 // GET ALL USERS

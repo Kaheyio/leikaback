@@ -111,7 +111,7 @@ module.exports.createCard_post = async (req, res) => {
 
         return res.status(400).send('Your card cannot be associated to a savings account');
     }
-
+    // TODO: recheck validation for 2 cards max if they're both valid ?
     // set limit of 2 cards by credit account (if account.canAddCard = false, no new card)
     if (account.cardsRef.length >= 2) {
 
@@ -122,7 +122,7 @@ module.exports.createCard_post = async (req, res) => {
         });
 
         await updateCanAddCard.save();
-        return res.status(400).send('Two cards are already registered to your credit account');
+        return res.status(400).send('Two cards are already registered to this credit account');
     }
     // END VALIDATION LINKED TO ACCOUNT //
 
@@ -166,7 +166,7 @@ module.exports.deleteCard_delete = async (req, res) => {
             _id: id
         });
 
-        //TODO: update accounts (cardsRef + canAddCard)
+        //TODO: update accounts (canAddCard)
         //TODO: transaction that has cardNumber as transactionRef
 
         
@@ -177,4 +177,4 @@ module.exports.deleteCard_delete = async (req, res) => {
     }
 };
 
-
+//user/62d51ac5c3ee8e13ee6464fe/account/62d5263b9b2e38630c215af4
