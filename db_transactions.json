@@ -232,7 +232,7 @@
             "submissionDate": "2022-06-05T00:45:23Z",
             "transactionType": "Direct Debit",
             "transactionRef": "FR02ZZZ570819",
-            "transactionStatus": "Past",
+            "transactionStatus": "Rejected",
             "category": "Digital",
             "rejectionReason": "Insufficient Funds"
         },
